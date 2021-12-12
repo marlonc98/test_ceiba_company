@@ -1,4 +1,4 @@
-package com.example.text_ceiba
+package com.example.text_ceiba.presentation.user_list
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
