@@ -30,12 +30,13 @@ class MainActivity : AppCompatActivity() {
         editTextSearch.doOnTextChanged { text, _, _, _ ->
                     _handleWord(text.toString())
         }
+        //necessary for show suspe nd fun
         GlobalScope.launch {
             loadUsers()
         }
     }
 
-    fun showAlertDialog() {
+    private fun showAlertDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Cargando").setCancelable(false)
         alertDialogLoading = builder.create()
