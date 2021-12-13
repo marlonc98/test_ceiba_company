@@ -15,7 +15,27 @@
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         tools:ignore="UselessParent">
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <EditText
+                android:id="@+id/editTextSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/edit_text_search"
+                android:inputType="textPersonName"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewSearchResults"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/textInputLayoutSearch"
+            android:layout_marginTop="@dimen/activity_vertical_margin" />
 
     </RelativeLayout>
 
