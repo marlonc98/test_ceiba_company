@@ -12,6 +12,7 @@ import androidx.core.widget.doOnTextChanged
 import com.example.text_ceiba.R
 import com.example.text_ceiba.data.repositories.user.UserRepositoryApi
 import com.example.text_ceiba.domain.model.User
+import com.example.text_ceiba.presentation.common.loading_alert.ShowDialogs
 import com.google.android.material.internal.ContextUtils.getActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -25,26 +26,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        showAlertDialog()
-        val editTextSearch = findViewById<EditText>(R.id.editTextSearch)
-        editTextSearch.doOnTextChanged { text, _, _, _ ->
-                    _handleWord(text.toString())
-        }
+        //show loading
+        alertDialogLoading = ShowDialogs.showLoadingDialog(this)
+
+        //add listeners
+        addListeners()
+
         //necessary for show suspe nd fun
         GlobalScope.launch {
             loadUsers()
         }
     }
 
-    private fun showAlertDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Cargando").setCancelable(false)
-        alertDialogLoading = builder.create()
-        alertDialogLoading.show()
+    private fun addListeners(){
+        val editTextSearch = findViewById<EditText>(R.id.editTextSearch)
+        editTextSearch.doOnTextChanged { text, _, _, _ ->
+            handleWord(text.toString())
+        }
     }
 
 
-    fun _handleWord(word: String) {
+    private fun handleWord(word: String) {
         val filteredUsers = users?.filter { it.name.lowercase().contains(word.lowercase()) } ?: emptyList()
         //hide empty
         findViewById<RelativeLayout>(R.id.emptyView).visibility = if (filteredUsers.size > 0)  View.GONE else View.VISIBLE
@@ -54,13 +56,14 @@ class MainActivity : AppCompatActivity() {
             androidx.recyclerview.widget.LinearLayoutManager(this)
         recyclerViewSearchResults.adapter = UserListItemAdapter(filteredUsers.toMutableList())
     }
-    suspend fun loadUsers() {
+
+    private suspend fun loadUsers() {
         val usersApi = UserRepositoryApi().getUsers(context = this@MainActivity)
         if(loading) alertDialogLoading.dismiss()
         this@MainActivity!!.runOnUiThread {
             //Cambiar controles
             users = usersApi
-            _handleWord("")
+            handleWord("")
         }
     }
 }
