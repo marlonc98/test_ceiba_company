@@ -1,12 +1,13 @@
 package com.example.text_ceiba.data.repositories.user.api.dto
-
+import androidx.annotation.Keep
 import com.example.text_ceiba.domain.model.User
+import com.google.gson.annotations.SerializedName
 
 data class UserDto(
     val address: Address,
     val company: Company,
     val email: String,
-    val id: Int,
+    @SerializedName("id") val id: Int,
     val name: String,
     val phone: String,
     val username: String,
