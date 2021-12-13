@@ -7,4 +7,6 @@
     <string name="generic_error">Ha ocurrido un error inesperado</string>
     <string name="accept">Aceptar</string>
     <string name="list_is_empty">List is empty</string>
+    <string name="loading">Please wait a moment</string>
+    <string name="loading_title">Loading</string>
 </resources>
