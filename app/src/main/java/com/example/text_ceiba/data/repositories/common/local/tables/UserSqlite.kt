@@ -50,6 +50,32 @@ class UserSqlite(private val context: Context) {
             return null
         }
     }
+    fun get(userId: Int): String? {
+        val dbHelper = LocalSqlite(context)
+        try {
+            val users = JSONArray()
+            dbHelper.readableDatabase.rawQuery("SELECT * FROM ${UserSqlite.TABLE_NAME} WHERE id = $userId LIMIT 1",null).use {
+                // index of the columns
+                val idIndex = it.getColumnIndex(UserSqlite.COLUMN_NAME)
+                val nameIndex = it.getColumnIndex(UserSqlite.COLUMN_NAME)
+                val emailIndex = it.getColumnIndex(UserSqlite.COLUMN_NAME)
+                val phoneIndex = it.getColumnIndex(UserSqlite.COLUMN_NAME)
+                val username = it.getColumnIndex(UserSqlite.COLUMN_USERNAME)
+                while (it.moveToNext()) {
+                    val user = JSONObject();
+                    user.put("id", it.getString(idIndex))
+                        .put("name", it.getString(nameIndex))
+                        .put("email", it.getString(emailIndex))
+                        .put("phone", it.getString(phoneIndex))
+                        .put("username", it.getString(username))
+                    users.put(user);
+                }
+            }
+            return Gson().toJson(users.get(0))
+        }catch (e: Exception){
+            return null
+        }
+    }
 
     fun insert(user: JSONObject): Boolean {
         val dbHelper = LocalSqlite(context)

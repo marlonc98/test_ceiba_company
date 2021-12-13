@@ -1,11 +1,14 @@
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.text_ceiba.R
 import com.example.text_ceiba.domain.model.User
+import com.example.text_ceiba.presentation.user_posts_list.PostActivity
 
 class UserListItemAdapter(val users: MutableList<User>): RecyclerView.Adapter<UserListItemAdapter.UserListItemHolder> (){
     class UserListItemHolder(view: View) : RecyclerView.ViewHolder(view){
@@ -32,7 +35,9 @@ class UserListItemAdapter(val users: MutableList<User>): RecyclerView.Adapter<Us
         holder.phone.text = users[position].phone
         holder.email.text = users[position].email
         holder.btnViewPost.setOnClickListener {
-            TODO("Not yet implemented")
+            val intent = Intent(holder.btnViewPost.context, PostActivity::class.java)
+            intent.putExtra("userId", users[position].id)
+            startActivity(holder.btnViewPost.context, intent, null)
         }
     }
 

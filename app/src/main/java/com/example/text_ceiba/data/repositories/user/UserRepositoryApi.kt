@@ -19,6 +19,10 @@ class UserRepositoryApi : IUserRepository {
         return usersDto.map { it.toUser() }
     }
 
+    override suspend fun getUser(context: Context, userId: Int): User? {
+        return null
+    }
+
     override suspend fun saveUser(context: Context, user: User): Boolean {
         return true
     }

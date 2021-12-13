@@ -15,6 +15,12 @@ class UserRepositoryLocal: IUserRepository {
 
     }
 
+    override suspend fun getUser(context: Context, userId: Int): User? {
+        val response: String =  UserSqlite(context).get(userId) ?: return null
+        val user = Gson().fromJson<User>(response, User::class.java)
+        return user!!
+    }
+
     override suspend fun saveUser(context: Context, user: User): Boolean {
         val stringObject: String = Gson().toJson(user);
         val jsonObject = JSONObject(stringObject)

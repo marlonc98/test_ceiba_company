@@ -29,7 +29,7 @@
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
+        <include layout="@layout/empty_view"  android:id="@+id/emptyView"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewSearchResults"
             android:layout_width="match_parent"
