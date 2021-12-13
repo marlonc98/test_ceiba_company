@@ -102,6 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Lista de publicaciones" />
+        <include layout="@layout/empty_view"  android:id="@+id/emptyView"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewPostsResults"
