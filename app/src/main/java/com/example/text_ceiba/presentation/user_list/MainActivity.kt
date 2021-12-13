@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         GlobalScope.launch {
-            val test = UserRepositoryApi().getUsers();
+            val test = UserRepositoryApi().getUsers(context = this@MainActivity)
             Log.v(
                 "main", "test: ${test.size}"
             )
